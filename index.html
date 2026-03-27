@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sicherungskasten-Planer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>Sicherungskasten-Planer</h1>
+    <span class="project-name" id="projectName" title="Doppelklick zum Umbenennen">Neues Projekt</span>
+    <div class="header-actions">
+        <button onclick="toggleWiringMode()" id="btnWiring">&#x1F50C; Verkabelung</button>
+        <button onclick="toggleWireDisplay()" id="btnWireDisplay">&#x1F441; Marker</button>
+        <button onclick="clearWires()">&#x2702; Kabel l&ouml;schen</button>
+        <button onclick="clearAll()">&#x1F5D1; Alles l&ouml;schen</button>
+        <button onclick="exportPlan()">&#x1F4BE; Exportieren</button>
+        <button onclick="importPlan()">&#x1F4C2; Importieren</button>
+    </div>
+</header>
+
+<div class="app">
+    <div class="sidebar">
+        <h2>Bauteile</h2>
+
+        <details class="sidebar-cat" open>
+            <summary>Sicherungsautomaten</summary>
+            <div class="component-item" draggable="true" data-type="mcb_1p"><div class="component-icon" style="background:#27ae60;">1P</div><div class="component-info"><span class="name">LS 1-polig</span><span class="size">1 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="mcb_3p"><div class="component-icon" style="background:#e67e22;">3P</div><div class="component-info"><span class="name">LS 3-polig</span><span class="size">3 TE</span></div></div>
+        </details>
+
+        <details class="sidebar-cat" open>
+            <summary>Klemmenbl&ouml;cke</summary>
+            <div class="component-item" draggable="true" data-type="klemme_n"><div class="component-icon" style="background:#2980b9;">N</div><div class="component-info"><span class="name">N-Klemme</span><span class="size">1 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="klemme_pe"><div class="component-icon" style="background:#27ae60;">PE</div><div class="component-info"><span class="name">PE-Klemme</span><span class="size">1 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="klemme_l"><div class="component-icon" style="background:#c0392b;">L</div><div class="component-info"><span class="name">L-Klemme</span><span class="size">1 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="klemme_block_4"><div class="component-icon" style="background:#34495e;">4K</div><div class="component-info"><span class="name">Klemmenblock 4x</span><span class="size">2 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="klemme_block_8"><div class="component-icon" style="background:#2c3e50;">8K</div><div class="component-info"><span class="name">Klemmenblock 8x</span><span class="size">4 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="klemme_block_12"><div class="component-icon" style="background:#1a252f;">12</div><div class="component-info"><span class="name">Klemmenblock 12x</span><span class="size">6 TE</span></div></div>
+        </details>
+
+        <details class="sidebar-cat" open>
+            <summary>Fehlerstromschutz (RCD)</summary>
+            <div class="component-item" draggable="true" data-type="rcd_small"><div class="component-icon" style="background:#2980b9;">FI</div><div class="component-info"><span class="name">RCD 2-polig</span><span class="size">2 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="rcd_large"><div class="component-icon" style="background:#8e44ad;">FI</div><div class="component-info"><span class="name">RCD 4-polig</span><span class="size">4 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="rcbo"><div class="component-icon" style="background:#16a085;">FI/LS</div><div class="component-info"><span class="name">FI/LS 1+N (RCBO)</span><span class="size">2 TE</span></div></div>
+        </details>
+
+        <details class="sidebar-cat">
+            <summary>Hauptschalter</summary>
+            <div class="component-item" draggable="true" data-type="hauptschalter"><div class="component-icon" style="background:#555555;">HS3</div><div class="component-info"><span class="name">Hauptschalter 3-pol</span><span class="size">3 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="hauptschalter2"><div class="component-icon" style="background:#666666;">HS2</div><div class="component-info"><span class="name">Hauptschalter 2-pol</span><span class="size">2 TE</span></div></div>
+        </details>
+
+        <details class="sidebar-cat">
+            <summary>Brandschutz</summary>
+            <div class="component-item" draggable="true" data-type="afdd"><div class="component-icon" style="background:#d35400;">AFDD</div><div class="component-info"><span class="name">Brandschutzschalter</span><span class="size">2 TE</span></div></div>
+        </details>
+
+        <details class="sidebar-cat">
+            <summary>Schaltger&auml;te</summary>
+            <div class="component-item" draggable="true" data-type="relais"><div class="component-icon" style="background:#1e8449;">R</div><div class="component-info"><span class="name">Stromsto&szlig;relais</span><span class="size">1 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="zeitschaltuhr"><div class="component-icon" style="background:#117864;">&#x23F2;</div><div class="component-info"><span class="name">Zeitschaltuhr</span><span class="size">2 TE</span></div></div>
+        </details>
+
+        <details class="sidebar-cat">
+            <summary>Sonstiges</summary>
+            <div class="component-item" draggable="true" data-type="spd"><div class="component-icon" style="background:#f39c12;">SPD</div><div class="component-info"><span class="name">&Uuml;berspg.-Schutz</span><span class="size">3 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="steckdose"><div class="component-icon" style="background:#2e4053;">&#x23E6;</div><div class="component-info"><span class="name">HS-Steckdose</span><span class="size">3 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="trennklemme"><div class="component-icon" style="background:#616a6b;">T</div><div class="component-info"><span class="name">Trennklemme</span><span class="size">1 TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="frei"><div class="component-icon" style="background:#7f8c8d;">&#x2731;</div><div class="component-info"><span class="name">Frei-Element</span><span class="size">1+ TE</span></div></div>
+            <div class="component-item" draggable="true" data-type="blank"><div class="component-icon" style="background:#95a5a6;">&mdash;</div><div class="component-info"><span class="name">Blindabdeckung</span><span class="size">1 TE</span></div></div>
+        </details>
+    </div>
+
+    <div class="main">
+        <div class="panel" id="panel">
+            <div id="panelsContainer" style="position:relative;"></div>
+            <svg class="wires-overlay" id="wiresOverlay"></svg>
+
+            <div class="wire-colors">
+                <div class="wire-color-item"><div class="wire-color-swatch" style="background:#c0392b;"></div> L1</div>
+                <div class="wire-color-item"><div class="wire-color-swatch" style="background:#2c3e50;"></div> L2</div>
+                <div class="wire-color-item"><div class="wire-color-swatch" style="background:#8e44ad;"></div> L3</div>
+                <div class="wire-color-item"><div class="wire-color-swatch" style="background:#2980b9;"></div> N</div>
+                <div class="wire-color-item"><div class="wire-color-swatch" style="background:#27ae60;"></div> PE</div>
+            </div>
+
+            <div class="instructions">
+                Bauteile per Drag &amp; Drop in die Reihen ziehen &bull;
+                <kbd>+ Kasten</kbd> = weiteren Kasten hinzufügen (3–36 TE) &bull;
+                <kbd>⚙</kbd> = Kasten konfigurieren &bull;
+                <kbd>Verkabelung</kbd> = Klemmen anklicken &bull;
+                <kbd>Entf</kbd> / <kbd>←</kbd><kbd>→</kbd> = Löschen / Verschieben
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Properties panel -->
+<div class="properties" id="propsPanel">
+    <h3 id="propsTitle">Eigenschaften</h3>
+    <label>Bezeichnung</label>
+    <input type="text" id="propName" placeholder="z.B. Küche Licht">
+    <label id="propAmpsLabel">Nennstrom (A)</label>
+    <select id="propAmps">
+        <option value="0">—</option>
+        <option value="6">6 A</option>
+        <option value="10">10 A</option>
+        <option value="13">13 A</option>
+        <option value="16" selected>16 A</option>
+        <option value="20">20 A</option>
+        <option value="25">25 A</option>
+        <option value="32">32 A</option>
+        <option value="40">40 A</option>
+        <option value="50">50 A</option>
+        <option value="63">63 A</option>
+    </select>
+    <label id="propCharLabel">Auslösecharakteristik</label>
+    <select id="propChar">
+        <option value="">—</option>
+        <option value="B" selected>B</option>
+        <option value="C">C</option>
+        <option value="D">D</option>
+    </select>
+    <label id="propKlemmenLabel" style="display:none;">Anzahl Anschlüsse</label>
+    <select id="propKlemmen" style="display:none;">
+        <option value="2">2</option>
+        <option value="4">4</option>
+        <option value="6">6</option>
+        <option value="8">8</option>
+        <option value="10">10</option>
+        <option value="12">12</option>
+    </select>
+    <label id="propFreiSizeLabel" style="display:none;">Breite (TE)</label>
+    <select id="propFreiSize" style="display:none;">
+        <option value="1">1 TE</option>
+        <option value="2">2 TE</option>
+        <option value="3">3 TE</option>
+        <option value="4">4 TE</option>
+        <option value="5">5 TE</option>
+        <option value="6">6 TE</option>
+    </select>
+    <label id="propFreiInputsLabel" style="display:none;">Eingänge oben (kommagetrennt)</label>
+    <input type="text" id="propFreiInputs" style="display:none;" placeholder="z.B. L1,L2,L3">
+    <label id="propFreiOutputsLabel" style="display:none;">Ausgänge unten (kommagetrennt)</label>
+    <input type="text" id="propFreiOutputs" style="display:none;" placeholder="z.B. 1,2,3,4">
+    <label id="propFreiColorLabel" style="display:none;">Farbe</label>
+    <select id="propFreiColor" style="display:none;">
+        <option value="#7f8c8d">Grau</option>
+        <option value="#c0392b">Rot</option>
+        <option value="#e67e22">Orange</option>
+        <option value="#f39c12">Gelb</option>
+        <option value="#27ae60">Grün</option>
+        <option value="#2980b9">Blau</option>
+        <option value="#8e44ad">Violett</option>
+        <option value="#2c3e50">Schwarz</option>
+        <option value="#16a085">Türkis</option>
+    </select>
+    <label>Kabelfarbe (Verkabelung)</label>
+    <select id="propWireColor">
+        <option value="#c0392b">L1 (braun/rot)</option>
+        <option value="#2c3e50">L2 (schwarz)</option>
+        <option value="#8e44ad">L3 (grau/violett)</option>
+        <option value="#2980b9">N (blau)</option>
+        <option value="#27ae60">PE (grün-gelb)</option>
+    </select>
+    <div class="btn-row">
+        <button class="btn-save" onclick="saveProps()">Speichern</button>
+        <button class="btn-delete" onclick="deleteSelected()">Löschen</button>
+    </div>
+    <div class="btn-row">
+        <button class="btn-close-props" onclick="closeProps()">Schließen</button>
+    </div>
+</div>
+
+<!-- Context menu -->
+<div class="context-menu" id="contextMenu">
+    <div class="context-menu-item" onclick="editFromContext()">Bearbeiten</div>
+    <div class="context-menu-item" onclick="duplicateFromContext()">Duplizieren</div>
+    <div class="context-menu-item" onclick="moveLeftFromContext()">← Nach links</div>
+    <div class="context-menu-item" onclick="moveRightFromContext()">→ Nach rechts</div>
+    <div class="context-menu-item danger" onclick="deleteFromContext()">Löschen</div>
+</div>
+
+<!-- Wiring indicator -->
+<div class="wiring-indicator" id="wiringIndicator">
+    Verkabelungs-Modus — Klemmen anklicken zum Verbinden (ESC zum Beenden)
+</div>
+
+<!-- Settings modal (per Kasten) -->
+<div class="modal-overlay" id="settingsModal">
+    <div class="modal">
+        <h3>Kasten konfigurieren</h3>
+        <input type="hidden" id="settPanelId">
+        <label>Bezeichnung</label>
+        <input type="text" id="settPanelName" placeholder="z.B. Hauptverteiler">
+        <label>Anzahl Reihen</label>
+        <select id="settRows">
+            <option value="1">1 Reihe</option>
+            <option value="2">2 Reihen</option>
+            <option value="3">3 Reihen</option>
+            <option value="4">4 Reihen</option>
+            <option value="5">5 Reihen</option>
+            <option value="6">6 Reihen</option>
+        </select>
+        <label>Teilungseinheiten (TE) pro Reihe</label>
+        <select id="settSlots">
+            <option value="3">3 TE</option>
+            <option value="4">4 TE</option>
+            <option value="5">5 TE</option>
+            <option value="6">6 TE</option>
+            <option value="7">7 TE</option>
+            <option value="8">8 TE</option>
+            <option value="9">9 TE</option>
+            <option value="12">12 TE</option>
+            <option value="18">18 TE</option>
+            <option value="24">24 TE</option>
+            <option value="36">36 TE</option>
+        </select>
+        <label style="margin-top:14px; font-weight:600; color:#e94560;">Eingebaute Klemmschienen</label>
+        <div style="display:flex; gap:16px; margin-top:6px;">
+            <label style="display:flex; align-items:center; gap:6px; margin:0;">
+                <input type="checkbox" id="settNSchiene"> <span style="color:#2980b9;">N-Schiene</span>
+            </label>
+            <label style="display:flex; align-items:center; gap:6px; margin:0;">
+                <input type="checkbox" id="settPESchiene"> <span style="color:#27ae60;">PE-Schiene</span>
+            </label>
+        </div>
+        <label>Anschlüsse pro Schiene</label>
+        <select id="settSchieneAnschl">
+            <option value="4">4</option>
+            <option value="7">7</option>
+            <option value="10">10</option>
+            <option value="12">12</option>
+            <option value="15">15</option>
+            <option value="18">18</option>
+        </select>
+        <div class="btn-row">
+            <button class="btn-save" onclick="applySettings()">Übernehmen</button>
+            <button class="btn-close-props" onclick="closeSettings()">Abbrechen</button>
+        </div>
+        <p style="font-size:0.7rem; color:#888; margin-top:12px;">
+            Achtung: Bauteile die nicht mehr in die neuen Maße passen, werden entfernt.
+        </p>
+    </div>
+</div>
+
+<!-- Floating toolbar -->
+<div class="floating-toolbar" id="floatingToolbar">
+    <button class="fab" onclick="toggleWiringMode()" id="fabWiring" title="Verkabelung ein/aus">&#x1F50C;</button>
+    <button class="fab" onclick="toggleWireDisplay()" id="fabWireDisplay" title="Kabel: Marker / Linien">&#x1F441;</button>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script src="app.js"></script>
+</body>
+</html>
