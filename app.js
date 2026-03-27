@@ -1711,6 +1711,9 @@ function importPlan() {
                 nextId = data.nextId || 1;
                 abgaenge = data.abgaenge || [];
         projectName = data.projectName || 'Neues Projekt';
+                const pnEl = document.getElementById('projectName');
+                if (pnEl) pnEl.textContent = projectName;
+                document.title = `${projectName} \u2014 Sicherungskasten-Planer`;
                 buildAll();
                 renderComponents();
                 saveToStorage();
