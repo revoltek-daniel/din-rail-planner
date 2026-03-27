@@ -4,28 +4,31 @@ const MIN_SLOT_WIDTH = 36;
 const MAX_SLOT_WIDTH = 70;
 
 const COMPONENT_DEFS = {
-    hauptschalter:  { name: 'Hauptschalter 3-pol', size: 3, color: '#555555', symbol: '\u23FB',  defaultAmps: 63, char: '',  isKlemme: false, poles: ['L1','L2','L3'] },
-    hauptschalter2: { name: 'Hauptschalter 2-pol', size: 2, color: '#666666', symbol: '\u23FB',  defaultAmps: 40, char: '',  isKlemme: false, poles: ['L','N'] },
-    rcd_small:      { name: 'RCD 2-pol',           size: 2, color: '#2980b9', symbol: '\u25C8',  defaultAmps: 25, char: '',  isKlemme: false, poles: ['L','N'] },
-    rcd_large:      { name: 'RCD 4-pol',           size: 4, color: '#8e44ad', symbol: '\u25C8',  defaultAmps: 40, char: '',  isKlemme: false, poles: ['L1','L2','L3','N'] },
-    mcb_1p:         { name: 'LS 1-pol',            size: 1, color: '#27ae60', symbol: '\u26A1', defaultAmps: 16, char: 'B', isKlemme: false, poles: ['L'] },
-    mcb_3p:         { name: 'LS 3-pol',            size: 3, color: '#e67e22', symbol: '\u26A1', defaultAmps: 16, char: 'B', isKlemme: false, poles: ['L1','L2','L3'] },
-    rcbo:           { name: 'FI/LS 1+N',           size: 2, color: '#16a085', symbol: '\u25C8\u26A1', defaultAmps: 16, char: 'B', isKlemme: false, poles: ['L','N'] },
-    klemme_n:       { name: 'N-Klemme',            size: 1, color: '#2980b9', symbol: '\u25AA',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 4,  poles: ['N'] },
-    klemme_pe:      { name: 'PE-Klemme',           size: 1, color: '#27ae60', symbol: '\u25AA',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 4,  poles: ['PE'] },
-    klemme_l:       { name: 'L-Klemme',            size: 1, color: '#c0392b', symbol: '\u25AA',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 4,  poles: ['L'] },
-    klemme_block_4: { name: 'Klemmenblock 4x',     size: 2, color: '#34495e', symbol: '\u25A6',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 4,  poles: ['1','2','3','4'] },
-    klemme_block_8: { name: 'Klemmenblock 8x',     size: 4, color: '#2c3e50', symbol: '\u25A6',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 8,  poles: ['1','2','3','4','5','6','7','8'] },
-    klemme_block_12:{ name: 'Klemmenblock 12x',    size: 6, color: '#1a252f', symbol: '\u25A6',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 12, poles: ['1','2','3','4','5','6','7','8','9','10','11','12'] },
-    spd:            { name: 'SPD',                 size: 3, color: '#f39c12', symbol: '\u26A1', defaultAmps: 0,  char: '',  isKlemme: false, poles: ['L1','L2','L3'] },
-    afdd:           { name: 'AFDD',                size: 2, color: '#d35400', symbol: '\u2622',  defaultAmps: 16, char: 'B', isKlemme: false, poles: ['L','N'] },
-    relais:         { name: 'Stromstoßrelais',     size: 1, color: '#1e8449', symbol: 'R',       defaultAmps: 16, char: '',  isKlemme: false, poles: ['L'] },
-    zeitschaltuhr:  { name: 'Zeitschaltuhr',       size: 2, color: '#117864', symbol: '\u23F2',  defaultAmps: 16, char: '',  isKlemme: false, poles: ['L','N'] },
-    steckdose:      { name: 'Hutschienen-Dose',    size: 3, color: '#2e4053', symbol: '\u23E6',  defaultAmps: 16, char: '',  isKlemme: false, poles: ['L','N','PE'] },
-    trennklemme:    { name: 'Trennklemme',         size: 1, color: '#616a6b', symbol: 'T',       defaultAmps: 0,  char: '',  isKlemme: false, poles: ['1'] },
-    frei:           { name: 'Frei',                size: 1, color: '#7f8c8d', symbol: '\u2731',  defaultAmps: 0,  char: '',  isKlemme: false, poles: ['1'], isFrei: true },
-    blank:          { name: 'Blind',               size: 1, color: '#95a5a6', symbol: '\u2014',  defaultAmps: 0,  char: '',  isKlemme: false, poles: [] },
+    hauptschalter:  { i18n: 'defHauptschalter3', size: 3, color: '#555555', symbol: '\u23FB',  defaultAmps: 63, char: '',  isKlemme: false, poles: ['L1','L2','L3'] },
+    hauptschalter2: { i18n: 'defHauptschalter2', size: 2, color: '#666666', symbol: '\u23FB',  defaultAmps: 40, char: '',  isKlemme: false, poles: ['L','N'] },
+    rcd_small:      { i18n: 'defRcd2',           size: 2, color: '#2980b9', symbol: '\u25C8',  defaultAmps: 25, char: '',  isKlemme: false, poles: ['L','N'] },
+    rcd_large:      { i18n: 'defRcd4',           size: 4, color: '#8e44ad', symbol: '\u25C8',  defaultAmps: 40, char: '',  isKlemme: false, poles: ['L1','L2','L3','N'] },
+    mcb_1p:         { i18n: 'defMcb1',           size: 1, color: '#27ae60', symbol: '\u26A1', defaultAmps: 16, char: 'B', isKlemme: false, poles: ['L'] },
+    mcb_3p:         { i18n: 'defMcb3',           size: 3, color: '#e67e22', symbol: '\u26A1', defaultAmps: 16, char: 'B', isKlemme: false, poles: ['L1','L2','L3'] },
+    rcbo:           { i18n: 'defRcbo',           size: 2, color: '#16a085', symbol: '\u25C8\u26A1', defaultAmps: 16, char: 'B', isKlemme: false, poles: ['L','N'] },
+    klemme_n:       { i18n: 'defKlemmeN',        size: 1, color: '#2980b9', symbol: '\u25AA',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 4,  poles: ['N'] },
+    klemme_pe:      { i18n: 'defKlemmePE',       size: 1, color: '#27ae60', symbol: '\u25AA',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 4,  poles: ['PE'] },
+    klemme_l:       { i18n: 'defKlemmeL',        size: 1, color: '#c0392b', symbol: '\u25AA',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 4,  poles: ['L'] },
+    klemme_block_4: { i18n: 'defKlemmeBlock4',   size: 2, color: '#34495e', symbol: '\u25A6',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 4,  poles: ['1','2','3','4'] },
+    klemme_block_8: { i18n: 'defKlemmeBlock8',   size: 4, color: '#2c3e50', symbol: '\u25A6',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 8,  poles: ['1','2','3','4','5','6','7','8'] },
+    klemme_block_12:{ i18n: 'defKlemmeBlock12',  size: 6, color: '#1a252f', symbol: '\u25A6',  defaultAmps: 0,  char: '',  isKlemme: true,  klemmen: 12, poles: ['1','2','3','4','5','6','7','8','9','10','11','12'] },
+    spd:            { i18n: 'defSpd',            size: 3, color: '#f39c12', symbol: '\u26A1', defaultAmps: 0,  char: '',  isKlemme: false, poles: ['L1','L2','L3'] },
+    afdd:           { i18n: 'defAfdd',           size: 2, color: '#d35400', symbol: '\u2622',  defaultAmps: 16, char: 'B', isKlemme: false, poles: ['L','N'] },
+    relais:         { i18n: 'defRelais',         size: 1, color: '#1e8449', symbol: 'R',       defaultAmps: 16, char: '',  isKlemme: false, poles: ['L'] },
+    zeitschaltuhr:  { i18n: 'defTimer',          size: 2, color: '#117864', symbol: '\u23F2',  defaultAmps: 16, char: '',  isKlemme: false, poles: ['L','N'] },
+    steckdose:      { i18n: 'defSocket',         size: 3, color: '#2e4053', symbol: '\u23E6',  defaultAmps: 16, char: '',  isKlemme: false, poles: ['L','N','PE'] },
+    trennklemme:    { i18n: 'defDisconnect',     size: 1, color: '#616a6b', symbol: 'T',       defaultAmps: 0,  char: '',  isKlemme: false, poles: ['1'] },
+    frei:           { i18n: 'defFree',           size: 1, color: '#7f8c8d', symbol: '\u2731',  defaultAmps: 0,  char: '',  isKlemme: false, poles: ['1'], isFrei: true },
+    blank:          { i18n: 'defBlank',          size: 1, color: '#95a5a6', symbol: '\u2014',  defaultAmps: 0,  char: '',  isKlemme: false, poles: [] },
 };
+
+// Helper: get translated component name
+function defName(def) { return t(def.i18n); }
 
 const CABLE_TYPES = [
     'NYM-J 3x1,5', 'NYM-J 3x2,5', 'NYM-J 5x1,5', 'NYM-J 5x2,5',
@@ -36,7 +39,7 @@ const CABLE_TYPES = [
 
 // ─── State ───
 // panels: array of { id, name, slotsPerRow, rowCount }
-let panels = [{ id: 1, name: 'Hauptverteiler', slotsPerRow: 18, rowCount: 3, hasNSchiene: true, hasPESchiene: true, schieneAnschluesse: 7 }];
+let panels = [{ id: 1, name: t('defaultPanel'), slotsPerRow: 18, rowCount: 3, hasNSchiene: true, hasPESchiene: true, schieneAnschluesse: 7 }];
 let components = []; // { id, type, panelId, row, slot, label, amps, char, wireColor, klemmen }
 let wires = [];
 let nextId = 2; // 1 is used by default panel
@@ -46,11 +49,18 @@ let wiringStart = null;
 let contextTarget = null;
 let dragMoveId = null;
 let abgaenge = [];
-let projectName = 'Neues Projekt';
+let projectName = t('newProject');
 
 // ─── Init ───
 function init() {
     loadFromStorage();
+
+    // Apply language
+    document.getElementById('langSwitcher').value = currentLang;
+    applyI18nToHTML();
+    buildSettingsRowOptions();
+    updateInstructions();
+
     buildAll();
     renderComponents();
 
@@ -65,22 +75,22 @@ function init() {
     // Project name
     const pnEl = document.getElementById('projectName');
     pnEl.textContent = projectName;
-    document.title = `${projectName} \u2014 Sicherungskasten-Planer`;
+    document.title = `${projectName} \u2014 ${t('appTitle')}`;
     pnEl.addEventListener('dblclick', () => {
         const input = document.createElement('input');
         input.type = 'text';
         input.className = 'project-name-input';
         input.value = projectName;
         input.addEventListener('blur', () => {
-            projectName = input.value || 'Neues Projekt';
+            projectName = input.value || t('newProject');
             const span = document.createElement('span');
             span.className = 'project-name';
             span.id = 'projectName';
-            span.title = 'Doppelklick zum Umbenennen';
+            span.title = t('dblClickRename');
             span.textContent = projectName;
             span.addEventListener('dblclick', pnEl._handler);
             input.replaceWith(span);
-            document.title = `${projectName} \u2014 Sicherungskasten-Planer`;
+            document.title = `${projectName} \u2014 ${t('appTitle')}`;
             saveToStorage();
         });
         input.addEventListener('keydown', (e) => { if (e.key === 'Enter') input.blur(); });
@@ -111,7 +121,7 @@ function buildAll() {
     // Add-Kasten button
     const addBtn = document.createElement('button');
     addBtn.className = 'add-panel-btn';
-    addBtn.textContent = '+ Kasten hinzuf\u00FCgen';
+    addBtn.textContent = t('addPanel');
     addBtn.addEventListener('click', addPanel);
     container.appendChild(addBtn);
 
@@ -130,10 +140,10 @@ function buildPanel(container, p) {
     const header = document.createElement('div');
     header.className = 'kasten-header';
     header.innerHTML = `
-        <span class="kasten-name" title="Doppelklick zum Umbenennen">${escHtml(p.name)}</span>
-        <span class="kasten-info">${p.rowCount} Reihe${p.rowCount > 1 ? 'n' : ''} \u00E0 ${p.slotsPerRow} TE</span>
+        <span class="kasten-name" title="${t('dblClickRename')}">${escHtml(p.name)}</span>
+        <span class="kasten-info">${t('panelInfo', {rows: p.rowCount, s: p.rowCount > 1 ? (currentLang === 'de' ? 'n' : 's') : '', slots: p.slotsPerRow})}</span>
         <div class="kasten-actions">
-            <button class="kasten-btn" title="Einstellungen" data-action="settings">\u2699</button>
+            <button class="kasten-btn" title="${t('settTitle')}" data-action="settings">\u2699</button>
             <button class="kasten-btn kasten-btn-danger" title="Kasten entfernen" data-action="delete">\u00D7</button>
         </div>
     `;
@@ -146,10 +156,10 @@ function buildPanel(container, p) {
         input.className = 'kasten-name-input';
         input.value = p.name;
         input.addEventListener('blur', () => {
-            p.name = input.value || 'Kasten';
+            p.name = input.value || t('kasten');
             const span = document.createElement('span');
             span.className = 'kasten-name';
-            span.title = 'Doppelklick zum Umbenennen';
+            span.title = t('dblClickRename');
             span.textContent = p.name;
             span.addEventListener('dblclick', nameEl._dblHandler);
             input.replaceWith(span);
@@ -166,8 +176,8 @@ function buildPanel(container, p) {
 
     // Delete button
     header.querySelector('[data-action="delete"]').addEventListener('click', () => {
-        if (panels.length <= 1) { showToast('Mindestens ein Kasten erforderlich'); return; }
-        if (!confirm(`Kasten "${p.name}" wirklich entfernen?`)) return;
+        if (panels.length <= 1) { showToast(t('minOnePanel')); return; }
+        if (!confirm(t('confirmDeletePanel', {name: p.name}))) return;
         components = components.filter(c => c.panelId !== p.id);
         panels = panels.filter(pp => pp.id !== p.id);
         cleanupWires();
@@ -191,7 +201,7 @@ function buildPanel(container, p) {
 
         const label = document.createElement('div');
         label.className = 'row-label';
-        label.textContent = `R${r + 1}`;
+        label.textContent = `${t('row')}${r + 1}`;
         row.appendChild(label);
 
         const slots = document.createElement('div');
@@ -262,8 +272,8 @@ function buildSchiene(panel, type, color) {
     inPort.style.borderColor = color;
     inPort.dataset.comp = `schiene_${panel.id}_${type}`;
     inPort.dataset.side = 'in';
-    inPort.title = `${type}-Schiene Eingang`;
-    inPort.textContent = 'IN';
+    inPort.title = t('schieneInput', {type});
+    inPort.textContent = t('schieneIn');
     const schieneId = `schiene_${panel.id}_${type}`;
 
     inPort.addEventListener('click', (e) => {
@@ -284,7 +294,7 @@ function buildSchiene(panel, type, color) {
         port.style.borderColor = color;
         port.dataset.comp = schieneId;
         port.dataset.side = `out_${i}`;
-        port.title = `${type}-Schiene Ausgang ${i}`;
+        port.title = t('schieneOutput', {type, n: i});
         port.textContent = i;
         port.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -303,12 +313,12 @@ function buildSchiene(panel, type, color) {
 
 function addPanel() {
     const id = nextId++;
-    const p = { id, name: 'Neuer Kasten', slotsPerRow: 9, rowCount: 1, hasNSchiene: false, hasPESchiene: false, schieneAnschluesse: 7 };
+    const p = { id, name: t('newPanel'), slotsPerRow: 9, rowCount: 1, hasNSchiene: false, hasPESchiene: false, schieneAnschluesse: 7 };
     panels.push(p);
     buildAll();
     renderComponents();
     saveToStorage();
-    showToast('Kasten hinzugef\u00FCgt');
+    showToast(t('panelAdded'));
 }
 
 function openPanelSettings(p) {
@@ -354,7 +364,7 @@ function applySettings() {
     renderComponents();
     saveToStorage();
     closeSettings();
-    showToast(`${p.name}: ${newRows} Reihe${newRows > 1 ? 'n' : ''} \u00E0 ${newSlots} TE`);
+    showToast(t('toastPanelSettings', {name: p.name, rows: newRows, s: newRows > 1 ? (currentLang === 'de' ? 'n' : 's') : '', slots: newSlots}));
 }
 
 // ─── Zuleitung ───
@@ -365,8 +375,8 @@ function buildHAK(container) {
 
     const label = document.createElement('div');
     label.className = 'row-label';
-    label.textContent = 'HAK';
-    label.title = 'Hauptanschlussklemme';
+    label.textContent = t('hakLabel');
+    label.title = t('hakTitle');
     hak.appendChild(label);
 
     const klemmen = document.createElement('div');
@@ -411,8 +421,8 @@ function buildAbgaenge(container) {
     const header = document.createElement('div');
     header.className = 'abgaenge-header';
     header.innerHTML = `
-        <span class="abgaenge-title">Abg\u00E4nge (Verbraucher)</span>
-        <button class="abgang-add-btn" onclick="addAbgang()">+ Abgang</button>
+        <span class="abgaenge-title">${t('abgaengeTitle')}</span>
+        <button class="abgang-add-btn" onclick="addAbgang()">${t('abgaengeAdd')}</button>
     `;
     wrap.appendChild(header);
 
@@ -481,7 +491,7 @@ function createAbgangElement(ab) {
 
     el.innerHTML = `
         ${adernHtml}
-        <div class="abgang-label-text" title="Doppelklick zum Bearbeiten">${escHtml(ab.label)}</div>
+        <div class="abgang-label-text" title="${t('dblClickRename')}">${escHtml(ab.label)}</div>
         <div class="abgang-detail">${escHtml(ab.cableType || '')}</div>
         <button class="abgang-del" onclick="deleteAbgang(${ab.id})">\u00D7</button>
     `;
@@ -521,10 +531,10 @@ function createAbgangElement(ab) {
 }
 
 function finishEditAbgang(ab, input) {
-    ab.label = input.value || 'Abgang';
+    ab.label = input.value || t('abgang');
     const newLabel = document.createElement('div');
     newLabel.className = 'abgang-label-text';
-    newLabel.title = 'Doppelklick zum Bearbeiten';
+    newLabel.title = t('dblClickRename');
     newLabel.textContent = ab.label;
     newLabel.addEventListener('dblclick', () => {
         const inp = document.createElement('input');
@@ -562,7 +572,7 @@ function openCableSelect(detailEl, ab) {
 
     const customOpt = document.createElement('option');
     customOpt.value = '__custom__';
-    customOpt.textContent = 'Andere...';
+    customOpt.textContent = t('cableCustom');
     select.appendChild(customOpt);
 
     if (ab.cableType && !CABLE_TYPES.includes(ab.cableType)) {
@@ -579,7 +589,7 @@ function openCableSelect(detailEl, ab) {
             input.type = 'text';
             input.className = 'abgang-edit-input';
             input.value = ab.cableType || '';
-            input.placeholder = 'Kabeltyp eingeben';
+            input.placeholder = t('cablePh');
             input.addEventListener('blur', () => {
                 ab.cableType = input.value || '';
                 const newEl = document.createElement('div');
@@ -621,7 +631,7 @@ function addAbgang() {
     const colorOptions = ['#c0392b', '#2c3e50', '#8e44ad', '#2980b9', '#27ae60', '#e67e22', '#f39c12', '#1abc9c'];
     const ab = {
         id: nextId++,
-        label: 'Neuer Abgang',
+        label: t('newAbgang'),
         cableType: 'NYM-J 3x1,5',
         color: colorOptions[abgaenge.length % colorOptions.length],
     };
@@ -637,7 +647,7 @@ function addAbgang() {
             input.type = 'text';
             input.className = 'abgang-edit-input';
             input.value = '';
-            input.placeholder = 'Bezeichnung eingeben';
+            input.placeholder = t('abgangNamePh');
             input.addEventListener('blur', () => finishEditAbgang(ab, input));
             input.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') input.blur();
@@ -753,7 +763,7 @@ function onSlotDrop(e) {
 
                 renderComponents();
                 saveToStorage();
-                showToast('Getauscht');
+                showToast(t('toastSwapped'));
                 dragMoveId = null;
                 return;
             }
@@ -767,12 +777,12 @@ function onSlotDrop(e) {
             comp.slot = slot;
             renderComponents();
             saveToStorage();
-            showToast('Verschoben');
+            showToast(t('toastMoved'));
         } else {
             comp.panelId = oldPanelId;
             comp.row = oldRow;
             comp.slot = oldSlot;
-            showToast('Kein Platz (Tauschen nur bei gleicher Breite)');
+            showToast(t('toastSwapSameSize'));
         }
         dragMoveId = null;
         return;
@@ -788,7 +798,7 @@ function onSlotDrop(e) {
 function placeComponent(type, panelId, row, slot) {
     const def = COMPONENT_DEFS[type];
     if (!canPlace(panelId, row, slot, def.size)) {
-        showToast('Kein Platz! Belegung pr\u00FCfen.');
+        showToast(t('toastNoSpaceCheck'));
         return null;
     }
 
@@ -805,7 +815,7 @@ function placeComponent(type, panelId, row, slot) {
         panelId,
         row,
         slot,
-        label: def.name,
+        label: defName(def),
         amps: def.defaultAmps,
         char: def.char,
         wireColor: autoColors[type] || '#c0392b',
@@ -1008,9 +1018,9 @@ function renderComponents() {
                 dragComp.slot = tmp.slot;
                 renderComponents();
                 saveToStorage();
-                showToast('Getauscht');
+                showToast(t('toastSwapped'));
             } else {
-                showToast('Tauschen nur bei gleicher Breite');
+                showToast(t('toastSwapSameSize'));
             }
             dragMoveId = null;
         });
@@ -1040,7 +1050,7 @@ let highlightCompId = null;
 function toggleWireDisplay() {
     showWireLines = !showWireLines;
     const btn = document.getElementById('btnWireDisplay');
-    btn.innerHTML = showWireLines ? '\uD83D\uDC41 Hover-Linien' : '\uD83D\uDC41 Nur Marker';
+    btn.innerHTML = showWireLines ? t('btnWireHover') : t('btnWireMarker');
     const fab = document.getElementById('fabWireDisplay');
     if (fab) fab.classList.toggle('active', showWireLines);
     renderWires();
@@ -1240,48 +1250,24 @@ function getTerminalLabel(compId, side) {
         const parts = compId.split('_'); // schiene_{panelId}_{type}
         const type = parts[2]; // N or PE
         const panel = panels.find(pp => pp.id === parseInt(parts[1]));
-        const name = panel ? panel.name : 'Kasten';
-        return `${type}-Schiene (${name})`;
+        const name = panel ? panel.name : t('kasten');
+        return `${t('schieneLabel', {type})} (${name})`;
     }
     // Abgang
     if (typeof compId === 'string' && compId.startsWith('abg_')) {
         const abId = parseInt(compId.replace('abg_', ''));
         const ab = abgaenge.find(a => a.id === abId);
-        const name = ab ? ab.label : 'Abgang';
+        const name = ab ? ab.label : t('abgang');
         const cable = ab ? ` (${ab.cableType})` : '';
         const ader = side ? side.replace('top_', '') : '';
-        return ader ? `[Abgang] ${name} ${ader}${cable}` : `[Abgang] ${name}${cable}`;
+        return ader ? `[${t('abgang')}] ${name} ${ader}${cable}` : `[${t('abgang')}] ${name}${cable}`;
     }
     // Component
     const comp = components.find(c => c.id === compId);
     if (!comp) return '?';
     const def = COMPONENT_DEFS[comp.type];
 
-    // Readable type name
-    const typeNames = {
-        hauptschalter: 'Hauptschalter',
-        hauptschalter2: 'Hauptschalter',
-        rcd_small: 'RCD 2-pol',
-        rcd_large: 'RCD 4-pol',
-        rcbo: 'FI/LS',
-        mcb_1p: 'LS 1-pol',
-        mcb_3p: 'LS 3-pol',
-        klemme_n: 'N-Klemme',
-        klemme_pe: 'PE-Klemme',
-        klemme_l: 'L-Klemme',
-        klemme_block_4: 'Klemmenblock',
-        klemme_block_8: 'Klemmenblock',
-        klemme_block_12: 'Klemmenblock',
-        spd: 'SPD',
-        afdd: 'AFDD',
-        relais: 'Relais',
-        zeitschaltuhr: 'Zeitschaltuhr',
-        steckdose: 'HS-Steckdose',
-        trennklemme: 'Trennklemme',
-        frei: 'Frei',
-        blank: 'Blind',
-    };
-    const typeName = typeNames[comp.type] || comp.type;
+    const typeName = t('typeName_' + comp.type) || comp.type;
 
     // Panel name for context
     const panel = panels.find(pp => pp.id === comp.panelId);
@@ -1314,7 +1300,7 @@ function openProps(id) {
     if (!comp) return;
 
     const def = COMPONENT_DEFS[comp.type];
-    document.getElementById('propsTitle').textContent = def.name;
+    document.getElementById('propsTitle').textContent = defName(def);
     document.getElementById('propName').value = comp.label;
     document.getElementById('propAmps').value = comp.amps;
     document.getElementById('propChar').value = comp.char;
@@ -1379,14 +1365,14 @@ function saveProps() {
             if (panel && canPlace(comp.panelId, comp.row, comp.slot, newSize, comp.id)) {
                 comp.freiSize = newSize;
             } else {
-                showToast('Neue Breite passt nicht, Platz pr\u00FCfen');
+                showToast(t('toastResizeFail'));
             }
         }
     }
 
     renderComponents();
     saveToStorage();
-    showToast('Gespeichert');
+    showToast(t('toastSaved'));
 }
 
 // ─── Deletion ───
@@ -1417,7 +1403,7 @@ function moveComponent(id, direction) {
         renderComponents();
         saveToStorage();
     } else {
-        showToast('Kein Platz');
+        showToast(t('toastNoRoom'));
     }
 }
 
@@ -1462,7 +1448,7 @@ function onTerminalClick(compId, side, terminalEl) {
     if (!wiringStart) {
         wiringStart = { compId, side, terminalEl };
         terminalEl.classList.add('active');
-        showToast('Startpunkt gew\u00E4hlt \u2014 jetzt Zielpunkt anklicken');
+        showToast(t('toastWireStart'));
     } else {
         if (wiringStart.compId === compId && wiringStart.side === side) {
             wiringStart.terminalEl.classList.remove('active');
@@ -1506,7 +1492,7 @@ function onTerminalClick(compId, side, terminalEl) {
         wiringStart = null;
         renderWires();
         saveToStorage();
-        showToast('Kabel verbunden');
+        showToast(t('toastWireConnected'));
     }
 }
 
@@ -1555,7 +1541,7 @@ function duplicateFromContext() {
             return;
         }
     }
-    showToast('Kein Platz in dieser Reihe');
+    showToast(t('toastNoRoomRow'));
 }
 
 function deleteFromContext() {
@@ -1624,17 +1610,17 @@ function loadFromStorage() {
 
         // Migration: old format had slotsPerRow/rowCount at top level
         if (data.slotsPerRow && !data.panels) {
-            panels = [{ id: 1, name: 'Hauptverteiler', slotsPerRow: data.slotsPerRow, rowCount: data.rowCount || 3 }];
+            panels = [{ id: 1, name: t('defaultPanel'), slotsPerRow: data.slotsPerRow, rowCount: data.rowCount || 3 }];
             components = (data.components || []).map(c => ({ ...c, panelId: 1 }));
         } else {
-            panels = data.panels || [{ id: 1, name: 'Hauptverteiler', slotsPerRow: 18, rowCount: 3 }];
+            panels = data.panels || [{ id: 1, name: t('defaultPanel'), slotsPerRow: 18, rowCount: 3 }];
             components = data.components || [];
         }
 
         wires = data.wires || [];
         nextId = data.nextId || 1;
         abgaenge = data.abgaenge || [];
-        projectName = data.projectName || 'Neues Projekt';
+        projectName = data.projectName || t('newProject');
 
         // Ensure nextId is above all existing ids
         const allIds = [
@@ -1650,30 +1636,30 @@ function loadFromStorage() {
 }
 
 function clearWires() {
-    if (!wires.length) { showToast('Keine Kabel vorhanden'); return; }
-    if (!confirm(`${wires.length} Kabel l\u00F6schen?`)) return;
+    if (!wires.length) { showToast(t('toastNoWires')); return; }
+    if (!confirm(t('toastDeleteWires', {n: wires.length}))) return;
     wires = [];
     renderWires();
     saveToStorage();
-    showToast('Alle Kabel gel\u00F6scht');
+    showToast(t('toastWiresDeleted'));
 }
 
 function clearAll() {
-    if (!confirm('Alle K\u00E4sten, Bauteile und Kabel l\u00F6schen?')) return;
-    panels = [{ id: nextId++, name: 'Hauptverteiler', slotsPerRow: 18, rowCount: 3 }];
+    if (!confirm(t('toastConfirmClearAll'))) return;
+    panels = [{ id: nextId++, name: t('defaultPanel'), slotsPerRow: 18, rowCount: 3 }];
     components = [];
     wires = [];
     abgaenge = [];
-    projectName = 'Neues Projekt';
+    projectName = t('newProject');
     selectedId = null;
     closeProps();
     buildAll();
     renderComponents();
     const pnEl = document.getElementById('projectName');
     if (pnEl) pnEl.textContent = projectName;
-    document.title = `${projectName} \u2014 Sicherungskasten-Planer`;
+    document.title = `${projectName} \u2014 ${t('appTitle')}`;
     saveToStorage();
-    showToast('Alles gel\u00F6scht');
+    showToast(t('toastAllDeleted'));
 }
 
 function exportPlan() {
@@ -1686,7 +1672,7 @@ function exportPlan() {
     a.download = (projectName || 'sicherungskasten').replace(/[^a-zA-Z0-9äöüÄÖÜß _-]/g, '') + '.json';
     a.click();
     URL.revokeObjectURL(url);
-    showToast('Plan exportiert');
+    showToast(t('toastExported'));
 }
 
 function importPlan() {
@@ -1701,25 +1687,25 @@ function importPlan() {
             try {
                 const data = JSON.parse(ev.target.result);
                 if (data.slotsPerRow && !data.panels) {
-                    panels = [{ id: 1, name: 'Hauptverteiler', slotsPerRow: data.slotsPerRow, rowCount: data.rowCount || 3 }];
+                    panels = [{ id: 1, name: t('defaultPanel'), slotsPerRow: data.slotsPerRow, rowCount: data.rowCount || 3 }];
                     components = (data.components || []).map(c => ({ ...c, panelId: 1 }));
                 } else {
-                    panels = data.panels || [{ id: 1, name: 'Hauptverteiler', slotsPerRow: 18, rowCount: 3 }];
+                    panels = data.panels || [{ id: 1, name: t('defaultPanel'), slotsPerRow: 18, rowCount: 3 }];
                     components = data.components || [];
                 }
                 wires = data.wires || [];
                 nextId = data.nextId || 1;
                 abgaenge = data.abgaenge || [];
-        projectName = data.projectName || 'Neues Projekt';
+        projectName = data.projectName || t('newProject');
                 const pnEl = document.getElementById('projectName');
                 if (pnEl) pnEl.textContent = projectName;
-                document.title = `${projectName} \u2014 Sicherungskasten-Planer`;
+                document.title = `${projectName} \u2014 ${t('appTitle')}`;
                 buildAll();
                 renderComponents();
                 saveToStorage();
-                showToast('Plan importiert');
+                showToast(t('toastImported'));
             } catch (err) {
-                showToast('Fehler beim Import');
+                showToast(t('toastImportError'));
             }
         };
         reader.readAsText(file);
@@ -1748,6 +1734,30 @@ function showToast(msg) {
     toast.classList.add('show');
     clearTimeout(toast._timer);
     toast._timer = setTimeout(() => toast.classList.remove('show'), 2000);
+}
+
+// ─── i18n helpers ───
+function buildSettingsRowOptions() {
+    const sel = document.getElementById('settRows');
+    sel.innerHTML = '';
+    for (let i = 1; i <= 6; i++) {
+        const opt = document.createElement('option');
+        opt.value = i;
+        opt.textContent = i === 1 ? t('settRowN', {n: i}) : t('settRowsN', {n: i});
+        sel.appendChild(opt);
+    }
+}
+
+function updateInstructions() {
+    const el = document.getElementById('instructions');
+    if (!el) return;
+    el.innerHTML = `
+        ${t('instrDrag')} &bull;
+        <kbd>${t('addPanel').replace('+ ', '+ ')}</kbd> = ${t('instrAddPanel')} &bull;
+        <kbd>\u2699</kbd> = ${t('instrSettings')} &bull;
+        <kbd>${t('btnWiring').replace(/^[^\s]+\s/, '')}</kbd> = ${t('instrWiring')} &bull;
+        <kbd>Del</kbd> / <kbd>\u2190</kbd><kbd>\u2192</kbd> = ${t('instrKeys')}
+    `;
 }
 
 // ─── Start ───

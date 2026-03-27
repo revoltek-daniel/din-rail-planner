@@ -57,6 +57,12 @@ header h1 { font-size: 1.3rem; color: #e94560; flex-shrink: 0; }
 }
 
 .header-actions button:hover { background: #0f3460; }
+
+.lang-switcher {
+    padding: 4px 8px;
+    font-size: 0.8rem;
+    font-weight: 700;
+}
 .header-actions label { font-size: 0.8rem; color: #aaa; }
 
 .app { display: flex; flex: 1; overflow: hidden; }
