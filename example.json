@@ -1,0 +1,150 @@
+{
+  "projectName": "Beispiel Wohnung / Example Apartment",
+  "panels": [
+    { "id": 1, "name": "Hauptverteiler", "slotsPerRow": 12, "rowCount": 3, "hasNSchiene": true, "hasPESchiene": true, "schieneAnschluesse": 14 }
+  ],
+  "components": [
+    { "id": 10, "type": "hauptschalter", "panelId": 1, "row": 0, "slot": 0, "label": "Hauptschalter", "amps": 63, "char": "", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 11, "type": "spd", "panelId": 1, "row": 0, "slot": 3, "label": "SPD", "amps": 0, "char": "", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 12, "type": "rcd_large", "panelId": 1, "row": 0, "slot": 6, "label": "FI Allgemein", "amps": 40, "char": "", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 13, "type": "blank", "panelId": 1, "row": 0, "slot": 10, "label": "Blind", "amps": 0, "char": "", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 14, "type": "blank", "panelId": 1, "row": 0, "slot": 11, "label": "Blind", "amps": 0, "char": "", "wireColor": "#c0392b", "klemmen": 0 },
+
+    { "id": 20, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 0, "label": "Licht Wohnzimmer", "amps": 10, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 21, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 1, "label": "Licht Küche", "amps": 10, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 22, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 2, "label": "Licht Bad", "amps": 10, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 23, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 3, "label": "Licht Flur", "amps": 10, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 24, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 4, "label": "Steckdosen Wohnz.", "amps": 16, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 25, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 5, "label": "Steckdosen Küche", "amps": 16, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 26, "type": "blank", "panelId": 1, "row": 1, "slot": 6, "label": "Blind", "amps": 0, "char": "", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 27, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 7, "label": "Steckdosen Schlafz.", "amps": 16, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 28, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 8, "label": "Kühlschrank", "amps": 16, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 29, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 9, "label": "Spülmaschine", "amps": 16, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 30, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 10, "label": "Waschmaschine", "amps": 16, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 31, "type": "mcb_1p", "panelId": 1, "row": 1, "slot": 11, "label": "Trockner", "amps": 16, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+
+    { "id": 40, "type": "mcb_3p", "panelId": 1, "row": 2, "slot": 0, "label": "Herd", "amps": 16, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 41, "type": "mcb_3p", "panelId": 1, "row": 2, "slot": 3, "label": "Durchlauferhitzer", "amps": 25, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 42, "type": "rcbo", "panelId": 1, "row": 2, "slot": 6, "label": "Bad Steckdose", "amps": 16, "char": "B", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 43, "type": "blank", "panelId": 1, "row": 2, "slot": 8, "label": "Blind", "amps": 0, "char": "", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 44, "type": "blank", "panelId": 1, "row": 2, "slot": 9, "label": "Blind", "amps": 0, "char": "", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 45, "type": "blank", "panelId": 1, "row": 2, "slot": 10, "label": "Blind", "amps": 0, "char": "", "wireColor": "#c0392b", "klemmen": 0 },
+    { "id": 46, "type": "blank", "panelId": 1, "row": 2, "slot": 11, "label": "Blind", "amps": 0, "char": "", "wireColor": "#c0392b", "klemmen": 0 }
+  ],
+  "wires": [
+    { "id": 100, "from": { "compId": "hak_L1", "side": "bottom" }, "to": { "compId": 10, "side": "top_L1" }, "color": "#c0392b" },
+    { "id": 101, "from": { "compId": "hak_L2", "side": "bottom" }, "to": { "compId": 10, "side": "top_L2" }, "color": "#2c3e50" },
+    { "id": 102, "from": { "compId": "hak_L3", "side": "bottom" }, "to": { "compId": 10, "side": "top_L3" }, "color": "#8e44ad" },
+    { "id": 103, "from": { "compId": 10, "side": "bottom_L1" }, "to": { "compId": 12, "side": "top_L1" }, "color": "#c0392b" },
+    { "id": 104, "from": { "compId": 10, "side": "bottom_L2" }, "to": { "compId": 12, "side": "top_L2" }, "color": "#2c3e50" },
+    { "id": 105, "from": { "compId": 10, "side": "bottom_L3" }, "to": { "compId": 12, "side": "top_L3" }, "color": "#8e44ad" },
+    { "id": 106, "from": { "compId": "hak_N", "side": "bottom" }, "to": { "compId": 12, "side": "top_N" }, "color": "#2980b9" },
+
+    { "id": 170, "from": { "compId": 10, "side": "bottom_L1" }, "to": { "compId": 11, "side": "top_L1" }, "color": "#c0392b" },
+    { "id": 171, "from": { "compId": 10, "side": "bottom_L2" }, "to": { "compId": 11, "side": "top_L2" }, "color": "#2c3e50" },
+    { "id": 172, "from": { "compId": 10, "side": "bottom_L3" }, "to": { "compId": 11, "side": "top_L3" }, "color": "#8e44ad" },
+    { "id": 195, "from": { "compId": "schiene_1_PE", "side": "out_14" }, "to": { "compId": 11, "side": "bottom_L1" }, "color": "#27ae60" },
+
+    { "id": 107, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 20, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 108, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 21, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 109, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 22, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 110, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 23, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 111, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 24, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 112, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 25, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 114, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 27, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 115, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 28, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 116, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 29, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 117, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 30, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 118, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 31, "side": "top_L" }, "color": "#c0392b" },
+
+    { "id": 193, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 40, "side": "top_L1" }, "color": "#c0392b" },
+    { "id": 175, "from": { "compId": 12, "side": "bottom_L2" }, "to": { "compId": 40, "side": "top_L2" }, "color": "#2c3e50" },
+    { "id": 176, "from": { "compId": 12, "side": "bottom_L3" }, "to": { "compId": 40, "side": "top_L3" }, "color": "#8e44ad" },
+    { "id": 194, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 41, "side": "top_L1" }, "color": "#c0392b" },
+    { "id": 177, "from": { "compId": 12, "side": "bottom_L2" }, "to": { "compId": 41, "side": "top_L2" }, "color": "#2c3e50" },
+    { "id": 178, "from": { "compId": 12, "side": "bottom_L3" }, "to": { "compId": 41, "side": "top_L3" }, "color": "#8e44ad" },
+
+    { "id": 179, "from": { "compId": 12, "side": "bottom_L1" }, "to": { "compId": 42, "side": "top_L" }, "color": "#c0392b" },
+    { "id": 180, "from": { "compId": 12, "side": "bottom_N" }, "to": { "compId": 42, "side": "top_N" }, "color": "#2980b9" },
+
+    { "id": 119, "from": { "compId": "hak_N", "side": "bottom" }, "to": { "compId": "schiene_1_N", "side": "in" }, "color": "#2980b9" },
+    { "id": 120, "from": { "compId": "hak_PE", "side": "bottom" }, "to": { "compId": "schiene_1_PE", "side": "in" }, "color": "#27ae60" },
+
+    { "id": 130, "from": { "compId": 20, "side": "bottom_L" }, "to": { "compId": "abg_200", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 131, "from": { "compId": "schiene_1_N", "side": "out_1" }, "to": { "compId": "abg_200", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 132, "from": { "compId": "schiene_1_PE", "side": "out_1" }, "to": { "compId": "abg_200", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 133, "from": { "compId": 21, "side": "bottom_L" }, "to": { "compId": "abg_201", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 134, "from": { "compId": "schiene_1_N", "side": "out_2" }, "to": { "compId": "abg_201", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 135, "from": { "compId": "schiene_1_PE", "side": "out_2" }, "to": { "compId": "abg_201", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 136, "from": { "compId": 22, "side": "bottom_L" }, "to": { "compId": "abg_202", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 137, "from": { "compId": "schiene_1_N", "side": "out_3" }, "to": { "compId": "abg_202", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 138, "from": { "compId": "schiene_1_PE", "side": "out_3" }, "to": { "compId": "abg_202", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 139, "from": { "compId": 23, "side": "bottom_L" }, "to": { "compId": "abg_203", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 140, "from": { "compId": "schiene_1_N", "side": "out_4" }, "to": { "compId": "abg_203", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 141, "from": { "compId": "schiene_1_PE", "side": "out_4" }, "to": { "compId": "abg_203", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 142, "from": { "compId": 24, "side": "bottom_L" }, "to": { "compId": "abg_204", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 143, "from": { "compId": "schiene_1_N", "side": "out_5" }, "to": { "compId": "abg_204", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 144, "from": { "compId": "schiene_1_PE", "side": "out_5" }, "to": { "compId": "abg_204", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 145, "from": { "compId": 25, "side": "bottom_L" }, "to": { "compId": "abg_205", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 146, "from": { "compId": "schiene_1_N", "side": "out_6" }, "to": { "compId": "abg_205", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 147, "from": { "compId": "schiene_1_PE", "side": "out_6" }, "to": { "compId": "abg_205", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 148, "from": { "compId": 28, "side": "bottom_L" }, "to": { "compId": "abg_206", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 149, "from": { "compId": "schiene_1_N", "side": "out_7" }, "to": { "compId": "abg_206", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 150, "from": { "compId": "schiene_1_PE", "side": "out_7" }, "to": { "compId": "abg_206", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 151, "from": { "compId": 40, "side": "bottom_L1" }, "to": { "compId": "abg_207", "side": "top_L1" }, "color": "#c0392b" },
+    { "id": 152, "from": { "compId": 40, "side": "bottom_L2" }, "to": { "compId": "abg_207", "side": "top_L2" }, "color": "#2c3e50" },
+    { "id": 153, "from": { "compId": 40, "side": "bottom_L3" }, "to": { "compId": "abg_207", "side": "top_L3" }, "color": "#8e44ad" },
+    { "id": 154, "from": { "compId": "schiene_1_N", "side": "out_8" }, "to": { "compId": "abg_207", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 155, "from": { "compId": "schiene_1_PE", "side": "out_8" }, "to": { "compId": "abg_207", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 156, "from": { "compId": 41, "side": "bottom_L1" }, "to": { "compId": "abg_208", "side": "top_L1" }, "color": "#c0392b" },
+    { "id": 157, "from": { "compId": 41, "side": "bottom_L2" }, "to": { "compId": "abg_208", "side": "top_L2" }, "color": "#2c3e50" },
+    { "id": 158, "from": { "compId": 41, "side": "bottom_L3" }, "to": { "compId": "abg_208", "side": "top_L3" }, "color": "#8e44ad" },
+    { "id": 159, "from": { "compId": "schiene_1_N", "side": "out_9" }, "to": { "compId": "abg_208", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 160, "from": { "compId": "schiene_1_PE", "side": "out_9" }, "to": { "compId": "abg_208", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 161, "from": { "compId": 30, "side": "bottom_L" }, "to": { "compId": "abg_209", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 162, "from": { "compId": "schiene_1_N", "side": "out_10" }, "to": { "compId": "abg_209", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 163, "from": { "compId": "schiene_1_PE", "side": "out_10" }, "to": { "compId": "abg_209", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 164, "from": { "compId": 31, "side": "bottom_L" }, "to": { "compId": "abg_210", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 188, "from": { "compId": "schiene_1_N", "side": "out_11" }, "to": { "compId": "abg_210", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 189, "from": { "compId": "schiene_1_PE", "side": "out_11" }, "to": { "compId": "abg_210", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 185, "from": { "compId": 42, "side": "bottom_L" }, "to": { "compId": "abg_211", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 186, "from": { "compId": 42, "side": "bottom_N" }, "to": { "compId": "abg_211", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 187, "from": { "compId": "schiene_1_PE", "side": "out_12" }, "to": { "compId": "abg_211", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 190, "from": { "compId": 27, "side": "bottom_L" }, "to": { "compId": "abg_212", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 191, "from": { "compId": "schiene_1_N", "side": "out_13" }, "to": { "compId": "abg_212", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 192, "from": { "compId": "schiene_1_PE", "side": "out_13" }, "to": { "compId": "abg_212", "side": "top_PE" }, "color": "#27ae60" },
+
+    { "id": 196, "from": { "compId": 29, "side": "bottom_L" }, "to": { "compId": "abg_213", "side": "top_L" }, "color": "#c0392b" },
+    { "id": 197, "from": { "compId": "schiene_1_N", "side": "out_12" }, "to": { "compId": "abg_213", "side": "top_N" }, "color": "#2980b9" },
+    { "id": 198, "from": { "compId": "schiene_1_PE", "side": "out_12" }, "to": { "compId": "abg_213", "side": "top_PE" }, "color": "#27ae60" }
+  ],
+  "abgaenge": [
+    { "id": 200, "label": "Licht Wohnzimmer", "cableType": "NYM-J 3x1,5", "color": "#c0392b" },
+    { "id": 201, "label": "Licht Küche", "cableType": "NYM-J 3x1,5", "color": "#2c3e50" },
+    { "id": 202, "label": "Licht Bad", "cableType": "NYM-J 3x1,5", "color": "#8e44ad" },
+    { "id": 203, "label": "Licht Flur", "cableType": "NYM-J 3x1,5", "color": "#2980b9" },
+    { "id": 204, "label": "Steckdosen Wohnzimmer", "cableType": "NYM-J 3x2,5", "color": "#27ae60" },
+    { "id": 205, "label": "Steckdosen Küche", "cableType": "NYM-J 3x2,5", "color": "#e67e22" },
+    { "id": 206, "label": "Kühlschrank", "cableType": "NYM-J 3x2,5", "color": "#f39c12" },
+    { "id": 207, "label": "Herd", "cableType": "NYM-J 5x2,5", "color": "#1abc9c" },
+    { "id": 208, "label": "Durchlauferhitzer", "cableType": "NYM-J 5x4", "color": "#c0392b" },
+    { "id": 209, "label": "Waschmaschine", "cableType": "NYM-J 3x2,5", "color": "#2c3e50" },
+    { "id": 210, "label": "Trockner", "cableType": "NYM-J 3x2,5", "color": "#8e44ad" },
+    { "id": 211, "label": "Steckdosen Bad", "cableType": "NYM-J 3x2,5", "color": "#27ae60" },
+    { "id": 212, "label": "Steckdosen Schlafz.", "cableType": "NYM-J 3x2,5", "color": "#f39c12" },
+    { "id": 213, "label": "Sp\u00FClmaschine", "cableType": "NYM-J 3x2,5", "color": "#1abc9c" }
+  ],
+  "nextId": 300
+}

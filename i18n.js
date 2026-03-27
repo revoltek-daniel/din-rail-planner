@@ -191,6 +191,10 @@ const TRANSLATIONS = {
         toastExported: 'Plan exportiert',
         toastImported: 'Plan importiert',
         toastImportError: 'Fehler beim Import',
+        shareCopied: 'Share-Link in Zwischenablage kopiert',
+        shareTooLarge: 'Plan zu gro\u00DF f\u00FCr Share-Link, bitte JSON exportieren',
+        shareError: 'Share-Link konnte nicht erstellt werden',
+        btnShare: '\uD83D\uDD17 Teilen',
         toastPanelSettings: '{name}: {rows} Reihe{s} \u00E0 {slots} TE',
 
         // Terminal labels
@@ -396,6 +400,10 @@ const TRANSLATIONS = {
         toastExported: 'Plan exported',
         toastImported: 'Plan imported',
         toastImportError: 'Import error',
+        shareCopied: 'Share link copied to clipboard',
+        shareTooLarge: 'Plan too large for share link, please export as JSON',
+        shareError: 'Could not create share link',
+        btnShare: '\uD83D\uDD17 Share',
         toastPanelSettings: '{name}: {rows} row{s} \u00E0 {slots} modules',
 
         typeName_hauptschalter: 'Main switch',

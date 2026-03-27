@@ -2,7 +2,7 @@
 
 An interactive, browser-based planner for configuring electrical distribution boards (consumer units). Fully client-side — no server required.
 
-**[Live Demo](https://revoltek-daniel.github.io/din-rail-planner/)** | [Deutsche Version weiter unten / German version below](#sicherungskasten-planer)
+**[Live Demo](https://revoltek-daniel.github.io/din-rail-planner/)** | **[Example Configuration](https://revoltek-daniel.github.io/din-rail-planner/?example)** | [Deutsche Version weiter unten](#sicherungskasten-planer)
 
 ## Features
 
@@ -51,6 +51,7 @@ An interactive, browser-based planner for configuring electrical distribution bo
 - Editable project name (shown in browser tab)
 - Auto-save in browser (localStorage)
 - Export / Import as JSON file
+- Share link — generates a compressed URL to share your configuration (copied to clipboard)
 
 ## Usage
 
@@ -124,7 +125,7 @@ MIT — see [LICENSE](LICENSE)
 
 Ein interaktiver, browserbasierter Planer zum Konfigurieren von Sicherungskästen (Unterverteilungen). Komplett clientseitig — kein Server nötig.
 
-**[Live-Demo](https://revoltek-daniel.github.io/din-rail-planner/)**
+**[Live-Demo](https://revoltek-daniel.github.io/din-rail-planner/)** | **[Beispielkonfiguration](https://revoltek-daniel.github.io/din-rail-planner/?example)**
 
 ## Features
 
@@ -174,6 +175,7 @@ Ein interaktiver, browserbasierter Planer zum Konfigurieren von Sicherungskäste
 - Projektname (Doppelklick zum Umbenennen, wird im Browser-Tab angezeigt)
 - Automatisches Speichern im Browser (localStorage)
 - Export/Import als JSON-Datei
+- Share-Link — erzeugt eine komprimierte URL zum Teilen der Konfiguration (wird in die Zwischenablage kopiert)
 
 ## Verwendung
 

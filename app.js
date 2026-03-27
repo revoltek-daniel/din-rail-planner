@@ -52,7 +52,7 @@ let abgaenge = [];
 let projectName = t('newProject');
 
 // ─── Init ───
-function init() {
+async function init() {
     loadFromStorage();
 
     // Apply language
@@ -60,6 +60,9 @@ function init() {
     applyI18nToHTML();
     buildSettingsRowOptions();
     updateInstructions();
+
+    // Check for URL parameters (shared plan or example)
+    const loadedFromURL = await loadFromURL();
 
     buildAll();
     renderComponents();
@@ -1675,6 +1678,26 @@ function exportPlan() {
     showToast(t('toastExported'));
 }
 
+function loadPlanData(data) {
+    if (data.slotsPerRow && !data.panels) {
+        panels = [{ id: 1, name: t('defaultPanel'), slotsPerRow: data.slotsPerRow, rowCount: data.rowCount || 3 }];
+        components = (data.components || []).map(c => ({ ...c, panelId: 1 }));
+    } else {
+        panels = data.panels || [{ id: 1, name: t('defaultPanel'), slotsPerRow: 18, rowCount: 3 }];
+        components = data.components || [];
+    }
+    wires = data.wires || [];
+    nextId = data.nextId || 1;
+    abgaenge = data.abgaenge || [];
+    projectName = data.projectName || t('newProject');
+    const pnEl = document.getElementById('projectName');
+    if (pnEl) pnEl.textContent = projectName;
+    document.title = `${projectName} \u2014 ${t('appTitle')}`;
+    buildAll();
+    renderComponents();
+    saveToStorage();
+}
+
 function importPlan() {
     const input = document.createElement('input');
     input.type = 'file';
@@ -1685,24 +1708,7 @@ function importPlan() {
         const reader = new FileReader();
         reader.onload = (ev) => {
             try {
-                const data = JSON.parse(ev.target.result);
-                if (data.slotsPerRow && !data.panels) {
-                    panels = [{ id: 1, name: t('defaultPanel'), slotsPerRow: data.slotsPerRow, rowCount: data.rowCount || 3 }];
-                    components = (data.components || []).map(c => ({ ...c, panelId: 1 }));
-                } else {
-                    panels = data.panels || [{ id: 1, name: t('defaultPanel'), slotsPerRow: 18, rowCount: 3 }];
-                    components = data.components || [];
-                }
-                wires = data.wires || [];
-                nextId = data.nextId || 1;
-                abgaenge = data.abgaenge || [];
-        projectName = data.projectName || t('newProject');
-                const pnEl = document.getElementById('projectName');
-                if (pnEl) pnEl.textContent = projectName;
-                document.title = `${projectName} \u2014 ${t('appTitle')}`;
-                buildAll();
-                renderComponents();
-                saveToStorage();
+                loadPlanData(JSON.parse(ev.target.result));
                 showToast(t('toastImported'));
             } catch (err) {
                 showToast(t('toastImportError'));
@@ -1711,6 +1717,71 @@ function importPlan() {
         reader.readAsText(file);
     };
     input.click();
+}
+
+// ─── Share Link ───
+async function sharePlan() {
+    const data = { projectName, panels, components, wires, nextId, abgaenge };
+    const json = JSON.stringify(data);
+
+    try {
+        // Compress with gzip
+        const stream = new Blob([json]).stream().pipeThrough(new CompressionStream('gzip'));
+        const compressed = await new Response(stream).arrayBuffer();
+        const bytes = new Uint8Array(compressed);
+        let binary = '';
+        for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+        const encoded = btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+        const url = window.location.origin + window.location.pathname + '?plan=' + encoded;
+
+        if (url.length > 8000) {
+            showToast(t('shareTooLarge'));
+            return;
+        }
+
+        await navigator.clipboard.writeText(url);
+        showToast(t('shareCopied'));
+    } catch (err) {
+        showToast(t('shareError'));
+    }
+}
+
+async function loadFromURL() {
+    const params = new URLSearchParams(window.location.search);
+
+    // Load from ?plan= (compressed share link)
+    const planParam = params.get('plan');
+    if (planParam) {
+        try {
+            const binary = atob(planParam.replace(/-/g, '+').replace(/_/g, '/'));
+            const bytes = new Uint8Array(binary.length);
+            for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+            const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+            const json = await new Response(stream).text();
+            loadPlanData(JSON.parse(json));
+            // Clean URL
+            window.history.replaceState({}, '', window.location.pathname);
+            return true;
+        } catch (err) {
+            console.warn('Failed to load shared plan:', err);
+        }
+    }
+
+    // Load from ?example (example config)
+    if (params.has('example')) {
+        try {
+            const resp = await fetch('example.json');
+            const data = await resp.json();
+            loadPlanData(data);
+            window.history.replaceState({}, '', window.location.pathname);
+            return true;
+        } catch (err) {
+            console.warn('Failed to load example:', err);
+        }
+    }
+
+    return false;
 }
 
 // ─── Utilities ───
