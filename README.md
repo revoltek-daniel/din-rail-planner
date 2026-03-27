@@ -1,6 +1,8 @@
-# Sicherungskasten-Planer
+# Sicherungskasten-Planer (DIN Rail Planner)
 
-Ein interaktiver, browserbasierter Planer zum Konfigurieren von Sicherungskästen (Unterverteilungen). Komplett clientseitig — kein Server nötig, einfach `index.html` im Browser öffnen.
+Ein interaktiver, browserbasierter Planer zum Konfigurieren von Sicherungskästen (Unterverteilungen). Komplett clientseitig — kein Server nötig.
+
+**[Live-Demo](https://revoltek-daniel.github.io/din-rail-planner/)**
 
 ## Features
 
