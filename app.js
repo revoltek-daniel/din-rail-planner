@@ -936,7 +936,7 @@ function renderComponents() {
 
             let gridHtml = '<div class="klemme-grid">';
             for (let i = 1; i <= numOutputs; i++) {
-                gridHtml += `<div class="klemme-port" data-comp="${comp.id}" data-side="bottom_${i}" title="Ausgang ${i}"><span class="klemme-port-num">${i}</span></div>`;
+                gridHtml += `<div class="klemme-port" data-comp="${comp.id}" data-side="bottom_${i}" title="${t('schieneOutput', {type: '', n: i}).trim()}"><span class="klemme-port-num">${i}</span></div>`;
             }
             gridHtml += '</div>';
 
@@ -1057,7 +1057,7 @@ let highlightCompId = null;
 function toggleWireDisplay() {
     showWireLines = !showWireLines;
     const btn = document.getElementById('btnWireDisplay');
-    btn.innerHTML = showWireLines ? t('btnWireHover') : t('btnWireMarker');
+    btn.textContent = showWireLines ? t('btnWireHover') : t('btnWireMarker');
     const fab = document.getElementById('fabWireDisplay');
     if (fab) fab.classList.toggle('active', showWireLines);
     renderWires();
@@ -1642,7 +1642,7 @@ function loadFromStorage() {
         ];
         if (allIds.length) nextId = Math.max(nextId, allIds.reduce((a, b) => Math.max(a, b), 0) + 1);
     } catch (e) {
-        console.warn('Fehler beim Laden:', e);
+        console.warn('Failed to load from storage:', e);
     }
 }
 
