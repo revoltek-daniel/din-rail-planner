@@ -50,10 +50,24 @@ let contextTarget = null;
 let dragMoveId = null;
 let abgaenge = [];
 let projectName = t('newProject');
+let viewMode = 'grid'; // 'grid' or 'list'
+let pendingAddTarget = null; // { panelId, row } — remembers where to place after sidebar pick
 
 // ─── Init ───
 async function init() {
+    // JS is running — hide the warning bar
+    const jsWarn = document.getElementById('jsWarning');
+    if (jsWarn) jsWarn.classList.add('hidden');
+
     loadFromStorage();
+
+    // Restore view mode (default to list on mobile if no preference)
+    const savedView = localStorage.getItem('sk_viewMode');
+    if (savedView) {
+        viewMode = savedView;
+    } else if (isMobile) {
+        viewMode = 'list';
+    }
 
     // Apply language
     document.getElementById('langSwitcher').value = currentLang;
@@ -208,30 +222,68 @@ function buildPanel(container, p) {
         label.textContent = `${t('row')}${r + 1}`;
         row.appendChild(label);
 
-        const slots = document.createElement('div');
-        slots.className = 'row-slots';
-        slots.id = `row-${p.id}-${r}`;
+        if (viewMode === 'list') {
+            // ── List view: show components as cards ──
+            const listView = document.createElement('div');
+            listView.className = 'row-list-view';
+            listView.id = `row-${p.id}-${r}`;
 
-        for (let s = 0; s < p.slotsPerRow; s++) {
-            const slot = document.createElement('div');
-            slot.className = 'slot';
-            slot.dataset.panelId = p.id;
-            slot.dataset.row = r;
-            slot.dataset.slot = s;
+            const rowComps = components
+                .filter(c => c.panelId === p.id && c.row === r)
+                .sort((a, b) => a.slot - b.slot);
 
-            const num = document.createElement('span');
-            num.className = 'slot-number';
-            num.textContent = s + 1;
-            slot.appendChild(num);
+            if (rowComps.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'row-list-empty';
+                empty.textContent = t('emptyRow');
+                empty.dataset.panelId = p.id;
+                empty.dataset.row = r;
+                empty.addEventListener('click', () => onListAddClick(p.id, r));
+                listView.appendChild(empty);
+            } else {
+                for (const comp of rowComps) {
+                    listView.appendChild(buildListItem(comp));
+                }
+            }
 
-            slot.addEventListener('dragover', onSlotDragOver);
-            slot.addEventListener('dragleave', onSlotDragLeave);
-            slot.addEventListener('drop', onSlotDrop);
+            // Add button
+            const addBtn = document.createElement('div');
+            addBtn.className = 'row-list-add';
+            addBtn.textContent = t('addToRow');
+            addBtn.dataset.panelId = p.id;
+            addBtn.dataset.row = r;
+            addBtn.addEventListener('click', () => onListAddClick(p.id, r));
+            listView.appendChild(addBtn);
 
-            slots.appendChild(slot);
+            row.appendChild(listView);
+        } else {
+            // ── Grid view: normal slot layout ──
+            const slots = document.createElement('div');
+            slots.className = 'row-slots';
+            slots.id = `row-${p.id}-${r}`;
+
+            for (let s = 0; s < p.slotsPerRow; s++) {
+                const slot = document.createElement('div');
+                slot.className = 'slot';
+                slot.dataset.panelId = p.id;
+                slot.dataset.row = r;
+                slot.dataset.slot = s;
+
+                const num = document.createElement('span');
+                num.className = 'slot-number';
+                num.textContent = s + 1;
+                slot.appendChild(num);
+
+                slot.addEventListener('dragover', onSlotDragOver);
+                slot.addEventListener('dragleave', onSlotDragLeave);
+                slot.addEventListener('drop', onSlotDrop);
+
+                slots.appendChild(slot);
+            }
+
+            row.appendChild(slots);
         }
 
-        row.appendChild(slots);
         rowsDiv.appendChild(row);
     }
 
@@ -856,8 +908,129 @@ function canPlace(panelId, row, startSlot, size, excludeId) {
     return true;
 }
 
+// ─── List View Helpers ───
+function buildListItem(comp) {
+    const def = COMPONENT_DEFS[comp.type];
+    const size = def.isFrei ? (comp.freiSize || 1) : def.size;
+    const color = def.isFrei ? (comp.freiColor || def.color) : def.color;
+
+    const item = document.createElement('div');
+    item.className = 'list-component-item';
+    item.dataset.id = comp.id;
+    if (comp.id === selectedId) item.classList.add('selected');
+
+    const swatch = document.createElement('div');
+    swatch.className = 'list-comp-swatch';
+    swatch.style.background = color;
+    swatch.textContent = def.symbol;
+    item.appendChild(swatch);
+
+    const info = document.createElement('div');
+    info.className = 'list-comp-info';
+
+    const name = document.createElement('div');
+    name.className = 'list-comp-name';
+    name.textContent = comp.label || defName(def);
+    info.appendChild(name);
+
+    const detail = document.createElement('div');
+    detail.className = 'list-comp-detail';
+    const parts = [];
+    if (comp.amps) parts.push(`${comp.char || ''}${comp.amps}A`);
+    parts.push(defName(def));
+    detail.textContent = parts.join(' \u2022 ');
+    info.appendChild(detail);
+
+    item.appendChild(info);
+
+    const meta = document.createElement('div');
+    meta.className = 'list-comp-meta';
+
+    const slotInfo = document.createElement('div');
+    slotInfo.className = 'list-comp-slot';
+    slotInfo.textContent = t('slotRange', {from: comp.slot + 1, to: comp.slot + size}) + ' \u2022 ' + t('teUnits', {n: size});
+    meta.appendChild(slotInfo);
+
+    // Wire count
+    const wireCount = wires.filter(w =>
+        w.from.compId === comp.id || w.to.compId === comp.id
+    ).length;
+    if (wireCount > 0) {
+        const wireInfo = document.createElement('div');
+        wireInfo.className = 'list-comp-wires';
+        wireInfo.textContent = t('wireCount', {n: wireCount});
+        meta.appendChild(wireInfo);
+    }
+
+    item.appendChild(meta);
+
+    item.addEventListener('click', () => selectComponent(comp.id));
+
+    return item;
+}
+
+function findNextFreeSlot(panelId, row, size) {
+    const panel = panels.find(pp => pp.id === panelId);
+    if (!panel) return -1;
+    for (let s = 0; s <= panel.slotsPerRow - size; s++) {
+        if (canPlace(panelId, row, s, size)) return s;
+    }
+    return -1;
+}
+
+function onListAddClick(panelId, row) {
+    if (!tapSelectedType) {
+        // Remember target row, open sidebar — component will be placed after selection
+        pendingAddTarget = { panelId, row };
+        if (isMobile) toggleSidebar();
+        return;
+    }
+    placeInRow(tapSelectedType, panelId, row);
+    clearTapSelection();
+}
+
+function placeInRow(type, panelId, row) {
+    const def = COMPONENT_DEFS[type];
+    if (!def) return;
+    const size = def.isFrei ? 1 : def.size;
+    const freeSlot = findNextFreeSlot(panelId, row, size);
+    if (freeSlot < 0) {
+        showToast(t('toastNoRoomRow'));
+        return;
+    }
+    placeComponent(type, panelId, row, freeSlot);
+}
+
+function toggleViewMode() {
+    viewMode = viewMode === 'grid' ? 'list' : 'grid';
+    localStorage.setItem('sk_viewMode', viewMode);
+
+    // If switching to list, exit wiring mode
+    if (viewMode === 'list' && wiringMode) {
+        toggleWiringMode();
+    }
+
+    buildAll();
+    renderComponents();
+    recalcAllSlotWidths();
+    updateInstructions();
+
+    const btn = document.getElementById('fabViewToggle');
+    btn.title = viewMode === 'grid' ? t('viewList') : t('viewGrid');
+}
+
 // ─── Rendering ───
 function renderComponents() {
+    // In list view, rebuild panels to reflect changes, then update selection
+    if (viewMode === 'list') {
+        buildAll();
+        document.querySelectorAll('.list-component-item').forEach(el => {
+            el.classList.toggle('selected', parseInt(el.dataset.id) === selectedId);
+        });
+        renderWires();
+        return;
+    }
+
     document.querySelectorAll('.placed-component').forEach(el => el.remove());
 
     for (const comp of components) {
@@ -1426,6 +1599,11 @@ function moveRightFromContext() {
 
 // ─── Wiring ───
 function toggleWiringMode() {
+    // Block entering wiring mode in list view
+    if (!wiringMode && viewMode === 'list') {
+        showToast(t('wiringNeedGrid'));
+        return;
+    }
     wiringMode = !wiringMode;
     wiringStart = null;
     const btn = document.getElementById('btnWiring');
@@ -1869,14 +2047,154 @@ function buildSettingsRowOptions() {
 function updateInstructions() {
     const el = document.getElementById('instructions');
     if (!el) return;
-    el.innerHTML = `
-        ${t('instrDrag')} &bull;
-        <kbd>${t('addPanel').replace('+ ', '+ ')}</kbd> = ${t('instrAddPanel')} &bull;
-        <kbd>\u2699</kbd> = ${t('instrSettings')} &bull;
-        <kbd>${t('btnWiring').replace(/^[^\s]+\s/, '')}</kbd> = ${t('instrWiring')} &bull;
-        <kbd>Del</kbd> / <kbd>\u2190</kbd><kbd>\u2192</kbd> = ${t('instrKeys')}
-    `;
+    if (isMobile && viewMode === 'list') {
+        el.innerHTML = `
+            ${t('instrTapList')} &bull;
+            <kbd>\u2699</kbd> = ${t('instrSettings')}
+        `;
+    } else if (isMobile) {
+        el.innerHTML = `
+            ${t('instrTap')} &bull;
+            <kbd>\u2699</kbd> = ${t('instrSettings')} &bull;
+            <kbd>${t('btnWiring').replace(/^[^\s]+\s/, '')}</kbd> = ${t('instrWiring')}
+        `;
+    } else {
+        el.innerHTML = `
+            ${t('instrDrag')} &bull;
+            <kbd>${t('addPanel').replace('+ ', '+ ')}</kbd> = ${t('instrAddPanel')} &bull;
+            <kbd>\u2699</kbd> = ${t('instrSettings')} &bull;
+            <kbd>${t('btnWiring').replace(/^[^\s]+\s/, '')}</kbd> = ${t('instrWiring')} &bull;
+            <kbd>Del</kbd> / <kbd>\u2190</kbd><kbd>\u2192</kbd> = ${t('instrKeys')}
+        `;
+    }
 }
 
+// ─── Mobile Support ───
+let isMobile = false;
+let tapSelectedType = null;
+
+function checkMobile() {
+    isMobile = window.matchMedia('(max-width: 768px)').matches;
+}
+
+function toggleMobileMenu() {
+    const actions = document.querySelector('.header-actions');
+    actions.classList.toggle('mobile-open');
+}
+
+function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('sidebarOverlay');
+    const isOpen = sidebar.classList.contains('mobile-open');
+    sidebar.classList.toggle('mobile-open');
+    overlay.classList.toggle('open', !isOpen);
+}
+
+function closeSidebar() {
+    document.getElementById('sidebar').classList.remove('mobile-open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+    pendingAddTarget = null;
+}
+
+function showTapIndicator(text) {
+    const el = document.getElementById('tapIndicator');
+    el.textContent = text;
+    el.classList.add('show');
+}
+
+function hideTapIndicator() {
+    document.getElementById('tapIndicator').classList.remove('show');
+}
+
+function clearTapSelection() {
+    tapSelectedType = null;
+    hideTapIndicator();
+    document.querySelectorAll('.component-item.tap-selected').forEach(el => {
+        el.classList.remove('tap-selected');
+    });
+}
+
+function onSidebarItemTap(e) {
+    if (!isMobile) return;
+    const item = e.currentTarget;
+    const type = item.dataset.type;
+
+    // If a row is waiting for a component, place directly
+    if (pendingAddTarget) {
+        const target = pendingAddTarget;
+        pendingAddTarget = null;
+        closeSidebar();
+        placeInRow(type, target.panelId, target.row);
+        return;
+    }
+
+    // Toggle selection
+    if (tapSelectedType === type) {
+        clearTapSelection();
+        return;
+    }
+
+    clearTapSelection();
+    tapSelectedType = type;
+    item.classList.add('tap-selected');
+    showTapIndicator(viewMode === 'list' ? t('tapToPlaceList') : t('tapToPlace'));
+    closeSidebar();
+}
+
+function onSlotTap(e) {
+    if (!isMobile || !tapSelectedType) return;
+    // Don't interfere with wiring mode
+    if (wiringMode) return;
+
+    const slot = e.currentTarget;
+    const panelId = parseInt(slot.dataset.panelId);
+    const row = parseInt(slot.dataset.row);
+    const slotNum = parseInt(slot.dataset.slot);
+
+    placeComponent(tapSelectedType, panelId, row, slotNum);
+    clearTapSelection();
+}
+
+function initMobile() {
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+
+    // Sidebar items: add tap handler for mobile
+    document.querySelectorAll('.component-item').forEach(el => {
+        el.addEventListener('click', onSidebarItemTap);
+    });
+
+    // Close mobile menu on outside click
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('.header-actions') && !e.target.closest('.mobile-menu-btn')) {
+            document.querySelector('.header-actions').classList.remove('mobile-open');
+        }
+    });
+
+    // Close tap selection on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && tapSelectedType) clearTapSelection();
+    });
+
+    // Recheck mobile on resize and update instructions
+    window.addEventListener('resize', () => {
+        updateInstructions();
+        if (!isMobile) clearTapSelection();
+    });
+}
+
+// Patch: add tap-to-place listeners to slots when they're created
+const origBuildAll = buildAll;
+buildAll = function() {
+    origBuildAll();
+    if (isMobile && viewMode === 'grid') {
+        document.querySelectorAll('.slot').forEach(slot => {
+            slot.addEventListener('click', onSlotTap);
+        });
+    }
+};
+
 // ─── Start ───
+checkMobile();
 init();
+initMobile();

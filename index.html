@@ -9,6 +9,20 @@
 </head>
 <body>
 
+<noscript>
+    <div style="position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;padding:2rem;text-align:center;font-family:sans-serif;color:#e0e0e0;background:#1a1a2e;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+        <p style="font-size:1.2rem;margin-bottom:1rem;"><strong>JavaScript ist deaktiviert.</strong></p>
+        <p>Diese Anwendung ben&ouml;tigt JavaScript, um zu funktionieren. Bitte aktivieren Sie JavaScript in Ihren Browser-Einstellungen.</p>
+        <hr style="border-color:#0f3460;width:200px;margin:1.5rem 0;">
+        <p style="font-size:1.2rem;margin-bottom:1rem;"><strong>JavaScript is disabled.</strong></p>
+        <p>This application requires JavaScript to run. Please enable JavaScript in your browser settings.</p>
+    </div>
+</noscript>
+
+<div class="js-warning" id="jsWarning">
+    <span>JavaScript ist nicht verf&uuml;gbar &mdash; diese Anwendung ben&ouml;tigt JavaScript. / JavaScript is not available &mdash; this app requires JavaScript.</span>
+</div>
+
 <header>
     <h1 data-i18n="appTitle">Sicherungskasten-Planer</h1>
     <span class="project-name" id="projectName" data-i18n-title="dblClickRename" title="Doppelklick zum Umbenennen">Neues Projekt</span>
@@ -25,10 +39,12 @@
         <button onclick="exportPlan()" data-i18n-html="btnExport">&#x1F4BE; Exportieren</button>
         <button onclick="importPlan()" data-i18n-html="btnImport">&#x1F4C2; Importieren</button>
     </div>
+    <button class="mobile-menu-btn" id="mobileMenuBtn" onclick="toggleMobileMenu()" aria-label="Menu">&#x2630;</button>
 </header>
 
 <div class="app">
-    <div class="sidebar">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+    <div class="sidebar" id="sidebar">
         <h2 data-i18n="sidebarTitle">Bauteile</h2>
 
         <details class="sidebar-cat" open>
@@ -249,9 +265,14 @@
 
 <!-- Floating toolbar -->
 <div class="floating-toolbar" id="floatingToolbar">
+    <button class="fab fab-sidebar" onclick="toggleSidebar()" id="fabSidebar" data-i18n-title="sidebarToggle" title="Bauteile ein/aus">&#x1F4E6;</button>
+    <button class="fab fab-view-toggle" onclick="toggleViewMode()" id="fabViewToggle" title="Grid/List">&#x1F4CB;</button>
     <button class="fab" onclick="toggleWiringMode()" id="fabWiring" data-i18n-title="fabWiring" title="Verkabelung ein/aus">&#x1F50C;</button>
     <button class="fab" onclick="toggleWireDisplay()" id="fabWireDisplay" data-i18n-title="fabWireDisplay" title="Kabel: Marker / Linien">&#x1F441;</button>
 </div>
+
+<!-- Mobile tap-to-place indicator -->
+<div class="tap-indicator" id="tapIndicator"></div>
 
 <!-- Toast -->
 <div class="toast" id="toast"></div>

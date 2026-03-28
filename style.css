@@ -9,6 +9,21 @@ body {
     flex-direction: column;
 }
 
+/* JS warning bar — visible by default, hidden by JS on load */
+.js-warning {
+    background: #e94560;
+    color: #fff;
+    text-align: center;
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    line-height: 1.4;
+    z-index: 500;
+    flex-shrink: 0;
+}
+
+.js-warning.hidden { display: none; }
+
 header {
     background: #16213e;
     padding: 12px 24px;
@@ -110,7 +125,6 @@ header h1 { font-size: 1.3rem; color: #e94560; flex-shrink: 0; }
 .sidebar-cat {
     border: 1px solid #0f3460;
     border-radius: 6px;
-    overflow: hidden;
 }
 
 .sidebar-cat summary {
@@ -125,6 +139,11 @@ header h1 { font-size: 1.3rem; color: #e94560; flex-shrink: 0; }
     display: flex;
     align-items: center;
     gap: 6px;
+    border-radius: 6px;
+}
+
+.sidebar-cat[open] summary {
+    border-radius: 6px 6px 0 0;
 }
 
 .sidebar-cat summary::before {
@@ -144,6 +163,10 @@ header h1 { font-size: 1.3rem; color: #e94560; flex-shrink: 0; }
     border-left: none;
     border-right: none;
     border-bottom: none;
+}
+
+.sidebar-cat > .component-item:last-of-type {
+    border-radius: 0 0 6px 6px;
 }
 
 .component-item {
@@ -765,7 +788,7 @@ select.abgang-edit-input {
     display: flex;
     flex-direction: column;
     gap: 8px;
-    z-index: 150;
+    z-index: 190;
 }
 
 .fab {
@@ -984,4 +1007,335 @@ select.abgang-edit-input {
 .modal button {
     flex: 1; padding: 10px; border: none; border-radius: 4px;
     cursor: pointer; font-size: 0.85rem; font-weight: 600;
+}
+
+/* ─── Mobile menu button (hidden on desktop) ─── */
+.mobile-menu-btn {
+    display: none;
+    background: transparent;
+    border: 1px solid #0f3460;
+    color: #e0e0e0;
+    font-size: 1.4rem;
+    padding: 4px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    line-height: 1;
+    flex-shrink: 0;
+}
+
+.mobile-menu-btn:hover { background: #0f3460; }
+
+/* Sidebar overlay (mobile only) */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 199;
+}
+
+.sidebar-overlay.open { display: block; }
+
+/* Sidebar toggle FAB (hidden on desktop) */
+.fab-sidebar { display: none; }
+
+/* Tap-to-place indicator */
+.tap-indicator {
+    position: fixed;
+    bottom: 80px; left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: #0f3460;
+    color: #fff;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    z-index: 200;
+    transition: transform 0.3s;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+.tap-indicator.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* Component selected for tap-to-place */
+.component-item.tap-selected {
+    border-color: #e94560;
+    background: #2a1a3e;
+    box-shadow: 0 0 8px rgba(233, 69, 96, 0.4);
+}
+
+/* View mode toggle FAB (hidden on desktop) */
+.fab-view-toggle { display: none; }
+
+/* ─── List view for mobile DIN rows ─── */
+.row-list-view {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 4px;
+    padding: 6px;
+}
+
+.list-component-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 10px;
+    background: #f5f5f0;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: box-shadow 0.15s;
+}
+
+.list-component-item:hover {
+    box-shadow: 0 0 6px rgba(233, 69, 96, 0.4);
+}
+
+.list-component-item.selected {
+    box-shadow: 0 0 0 2px #e94560;
+}
+
+.list-comp-swatch {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+}
+
+.list-comp-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.list-comp-name {
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.list-comp-detail {
+    font-size: 0.65rem;
+    color: #888;
+}
+
+.list-comp-meta {
+    text-align: right;
+    flex-shrink: 0;
+}
+
+.list-comp-slot {
+    font-size: 0.6rem;
+    color: #999;
+    white-space: nowrap;
+}
+
+.list-comp-wires {
+    font-size: 0.55rem;
+    color: #2980b9;
+    font-weight: 600;
+}
+
+.row-list-empty {
+    padding: 14px;
+    text-align: center;
+    color: #999;
+    font-size: 0.75rem;
+    font-style: italic;
+}
+
+.row-list-add {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    border: 1px dashed #bbb;
+    border-radius: 6px;
+    color: #888;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    transition: border-color 0.2s, color 0.2s;
+}
+
+.row-list-add:hover {
+    border-color: #e94560;
+    color: #e94560;
+}
+
+/* ─── Responsive: Tablets (<=900px) ─── */
+@media (max-width: 900px) {
+    header { padding: 8px 12px; flex-wrap: wrap; gap: 6px; }
+    header h1 { font-size: 1.1rem; }
+    .project-name { font-size: 0.85rem; }
+
+    .sidebar { width: 190px; padding: 10px; }
+    .main { padding: 12px; }
+    .panel { padding: 12px; }
+}
+
+/* ─── Responsive: Mobile (<=768px) ─── */
+@media (max-width: 768px) {
+    /* Header: compact layout */
+    header {
+        padding: 8px 12px;
+        flex-wrap: nowrap;
+        gap: 8px;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    header h1 { font-size: 1rem; }
+    .project-name { display: none; }
+
+    /* Hide desktop actions, show mobile menu button */
+    .header-actions { display: none; }
+    .header-actions.mobile-open {
+        display: flex;
+        flex-wrap: wrap;
+        position: fixed;
+        top: 46px;
+        left: 0; right: 0;
+        background: #16213e;
+        border-bottom: 2px solid #0f3460;
+        padding: 10px;
+        gap: 6px;
+        z-index: 99;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    }
+
+    .header-actions.mobile-open button,
+    .header-actions.mobile-open select {
+        flex: 1 1 auto;
+        min-width: 0;
+        font-size: 0.78rem;
+        padding: 8px 10px;
+    }
+
+    .mobile-menu-btn { display: block; margin-left: auto; }
+
+    /* Sidebar: off-canvas drawer */
+    .sidebar {
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        width: 250px;
+        z-index: 200;
+        transform: translateX(-100%);
+        transition: transform 0.25s ease;
+        padding-top: 54px;
+        padding-bottom: 24px;
+        background: #16213e;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.6);
+    }
+
+    .sidebar.mobile-open {
+        transform: translateX(0);
+    }
+
+    /* Show sidebar toggle FAB */
+    .fab-sidebar { display: flex; }
+    .fab-view-toggle { display: flex; }
+
+    /* Main area: full width, allow horizontal scroll for wide panels */
+    .main {
+        padding: 10px 6px;
+        align-items: stretch;
+    }
+
+    .panel {
+        padding: 10px;
+    }
+
+    /* Kasten body scrolls horizontally, header stays full-width */
+    .kasten-body {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .kasten-body .din-row:has(.row-slots) { min-width: max-content; }
+    .kasten-body .row-slots { min-width: max-content; }
+    .kasten-body .din-row:has(.row-list-view) { min-width: 0; }
+
+    /* HAK also scrollable */
+    .hak-bar {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Narrower slots on mobile */
+    .slot { min-height: 80px; }
+    .placed-component .comp-label { font-size: 0.5rem; }
+    .placed-component .comp-symbol { font-size: 0.9rem; }
+    .placed-component .comp-rating { font-size: 0.5rem; }
+
+    /* Properties panel full width on mobile */
+    .properties { width: 100%; }
+
+    /* Floating toolbar */
+    .floating-toolbar { bottom: 14px; right: 14px; }
+    .fab { width: 40px; height: 40px; font-size: 1rem; }
+
+    /* Wiring indicator smaller */
+    .wiring-indicator {
+        font-size: 0.72rem;
+        padding: 6px 14px;
+        top: 52px;
+        max-width: 90vw;
+        text-align: center;
+    }
+
+    /* Toast above floating toolbar */
+    .toast { bottom: 70px; font-size: 0.8rem; max-width: 85vw; }
+
+    /* Modal full width */
+    .modal { min-width: auto; width: 92vw; }
+
+    /* Abgaenge wrap nicely */
+    .abgaenge-list { gap: 6px; }
+    .abgang-item { min-width: 60px; padding: 8px 6px 4px; }
+    .abgang-label-text { font-size: 0.6rem; max-width: 65px; }
+
+    /* Kasten header */
+    .kasten-header { padding: 5px 8px; flex-wrap: wrap; }
+    .kasten-name { font-size: 0.75rem; }
+    .kasten-info { font-size: 0.6rem; }
+
+    /* Instructions */
+    .instructions { font-size: 0.68rem; }
+}
+
+/* ─── Responsive: Small phones (<=480px) ─── */
+@media (max-width: 480px) {
+    header h1 { font-size: 0.9rem; }
+
+    .sidebar { width: 220px; }
+
+    .main { padding: 6px 4px; }
+    .panel { padding: 8px; }
+
+    .slot { min-height: 70px; }
+    .placed-component .comp-label { font-size: 0.45rem; }
+    .placed-component .comp-symbol { font-size: 0.8rem; }
+
+    .row-label { padding: 2px 4px; font-size: 0.6rem; min-width: 20px; }
+
+    .fab { width: 36px; height: 36px; font-size: 0.9rem; }
+    .floating-toolbar { bottom: 10px; right: 10px; gap: 6px; }
+
+    .properties { padding: 12px; }
+    .properties h3 { font-size: 0.85rem; }
 }
