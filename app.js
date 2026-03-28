@@ -28,10 +28,6 @@ let pendingAddTarget = null; // { panelId, row } — remembers where to place af
 
 // ─── Init ───
 async function init() {
-    // JS is running — hide the warning bar
-    const jsWarn = document.getElementById('jsWarning');
-    if (jsWarn) jsWarn.classList.add('hidden');
-
     loadFromStorage();
 
     // Restore view mode (default to list on mobile if no preference)

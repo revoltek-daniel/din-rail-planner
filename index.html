@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data:;">
     <title>Sicherungskasten-Planer</title>
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -22,6 +24,7 @@
 <div class="js-warning" id="jsWarning">
     <span>JavaScript ist nicht verf&uuml;gbar &mdash; diese Anwendung ben&ouml;tigt JavaScript. / JavaScript is not available &mdash; this app requires JavaScript.</span>
 </div>
+<script>document.getElementById('jsWarning').classList.add('hidden');</script>
 
 <header>
     <h1 data-i18n="appTitle">Sicherungskasten-Planer</h1>
