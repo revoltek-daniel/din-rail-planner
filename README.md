@@ -126,6 +126,10 @@ din-rail-planner/
 └── README.md
 ```
 
+## Built with AI
+
+This project was developed with the assistance of AI.
+
 ## License
 
 MIT — see [LICENSE](LICENSE)
@@ -251,6 +255,10 @@ din-rail-planner/
 ├── LICENSE         # MIT-Lizenz
 └── README.md
 ```
+
+## Erstellt mit KI
+
+Dieses Projekt wurde mit Unterstützung von KI entwickelt.
 
 ## Lizenz
 
