@@ -1,6 +1,6 @@
 # DIN Rail Planner
 
-An interactive, browser-based planner for configuring electrical distribution boards (consumer units). Fully client-side — no server required.
+A free, open-source, browser-based planner for configuring electrical distribution boards (consumer units / Sicherungskästen). No installation, no account, no server — just open and plan.
 
 **[Live Demo](https://revoltek-daniel.github.io/din-rail-planner/)** | **[Example Configuration](https://revoltek-daniel.github.io/din-rail-planner/?example)** | [Deutsche Version weiter unten](#sicherungskasten-planer)
 
@@ -134,7 +134,7 @@ MIT — see [LICENSE](LICENSE)
 
 # Sicherungskasten-Planer
 
-Ein interaktiver, browserbasierter Planer zum Konfigurieren von Sicherungskästen (Unterverteilungen). Komplett clientseitig — kein Server nötig.
+Ein kostenloser, quelloffener Planer zum Konfigurieren von Sicherungskästen und Unterverteilungen — direkt im Browser. Keine Installation, kein Konto, kein Server nötig.
 
 **[Live-Demo](https://revoltek-daniel.github.io/din-rail-planner/)** | **[Beispielkonfiguration](https://revoltek-daniel.github.io/din-rail-planner/?example)**
 
